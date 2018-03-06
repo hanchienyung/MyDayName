@@ -25,7 +25,7 @@ public class MainController{
 
     List<String> femaleNames =  Arrays.asList( "Adjoa", "Abena", "Akua", "Yaa", "Afua", "Ama", "Akosua");
     List<String> maleNames = Arrays.asList( "Kojo", "Kwabena", "Kweku", "Yaw", "Kofi", "Kwame", "Kwesi");
-    List<String>
+
 
     @Autowired
     DateHistoryRepository datehistoryRepository;
@@ -69,9 +69,9 @@ public class MainController{
 
         System.out.println("dayofweek is " + dayOfWeek);
 
-        dateHistory.setMaleName(maleNames[dayOfWeek.getValue()]);
+        dateHistory.setMaleName(maleNames.get(dayOfWeek.getValue()));
 
-        dateHistory.setFemaleName(femaleNames[dayOfWeek.getValue()]);
+        dateHistory.setFemaleName(femaleNames.get(dayOfWeek.getValue()));
 
 
         datehistoryRepository.save(dateHistory);
