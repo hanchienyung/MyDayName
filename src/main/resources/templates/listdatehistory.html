@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<th:block th:replace="fragment::top"></th:block>
+<head>
+    <meta charset="UTF-8"/>
+    <div th:replace="fragment :: top"></div>
+    <link rel="stylesheet" href="./css/styles.css"/>
+</head>
+<div th:replace="fragment :: navlinks"></div>
+<h1>List of Items</h1>
+<table class="table" >
+    <tr>
+        <th>Day of Week</th>
+        <th>Female Name</th>
+        <th>Male Name</th>
+    </tr>
+    <tr th:each="datehistory : ${datehistorys}">
+        <td data-th="Day of Week" th:text="${datehistory.dayofWeek}"></td>
+        <td data-th="Female Name" th:text="${datehistory.femaleName}"></td>
+        <td data-th="Male Name" th:text="${datehistory.maleName}"></td>
+
+    </tr>
+</table>
+<section>
+    <span th:replace="fragment::bootstrap4js"></span>
+</section>
+</body>
+</html>
