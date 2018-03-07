@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <!--<th:block th:replace="fragment::top"></th:block> -->
 <head>
-  <!--  <div th:replace="fragment :: top"></div> -->
+    <div th:replace="fragment :: top"></div>
     <title>Enter your birthdate</title>
     <link rel="stylesheet" href="./css/index.css">
 </head>
@@ -10,12 +10,12 @@
 
 
 <!--<div th:replace="fragment :: navbar"></div> -->
-<!--<div th:replace="fragment :: navlinks"></div> -->
+<div th:replace="fragment :: navlinks"></div>
 
 <div class="body-content">
     <div class="col-sm">
         <h1>Enter a Date</h1>
-        <form class="form" action="#" th:action="@{/getuserdate}"  method="post">
+        <form class="form" action="#" th:action="@{/processuserdate}"  method="post">
            <!-- <input type="hidden" th:field="*{id}">  -->
 
             <label>Enter Date of Birth</label>

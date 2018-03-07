@@ -7,22 +7,17 @@
     <link rel="stylesheet" href="./css/styles.css"/>
 </head>
 <div th:replace="fragment :: navlinks"></div>
-<h1>List of Items</h1>
+<h1>Show history transactions by User</h1>
 <table class="table" >
     <tr>
         <th>Date of Birth</th>
         <th>Female Name</th>
         <th>Male Name</th>
-        <th>Chinese Zodiac</th>
-        <th>Astrolological Sign</th>
     </tr>
-    <tr th:each="datehistory : ${datehistorys}">
-        <td data-th="Day of Week" th:text="${datehistory.userDate}"></td>
-        <td data-th="Female Name" th:text="${datehistory.femaleName}"></td>
-        <td data-th="Male Name" th:text="${datehistory.maleName}"></td>
-        <td data-th="Chinese Zodiac" th:text="${datehistory.chineseZodiac}"></td>
-        <td data-th="Astrological Sign" th:text="${datehistory.astrologSign}"></td>
-
+    <tr th:each="user : ${users}">
+        <td data-th="Date of Birth" th:text="${user.userDate}"></td>
+        <td data-th="Female Name" th:text="${user.femaleName}"></td>
+        <td data-th="Male Name" th:text="${user.maleName}"></td>
 
     </tr>
 </table>
