@@ -1,26 +1,24 @@
-package com.cy.example.demo;
+package com.cy.example.demo.Controller;
 
+import com.cy.example.demo.Model.DateHistory;
+import com.cy.example.demo.Model.DateHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
 
-
-
-
+@Controller
 public class MainController{
 
     List<String> femaleNames =  Arrays.asList( "Adjoa", "Abena", "Akua", "Yaa", "Afua", "Ama", "Akosua");
@@ -31,6 +29,11 @@ public class MainController{
     DateHistoryRepository datehistoryRepository;
 
 
+    @RequestMapping("/")
+    public String mainpage(Model model)
+    {
+        return "dateform";
+    }
 
     @RequestMapping("/login")
     public String login(Model model)
@@ -46,38 +49,29 @@ public class MainController{
         DateHistory datehistory = new DateHistory();
         //System.out.println ("addreportitem (request) = reportItem id / Name = " +  reportItem.getId() + " / " + reportItem.getItemName());
         datehistoryRepository.save(dateHistory);
+        model.addAttribute("datehistorys", dateHistory);
         return "getuserdate";
     }
 
     @PostMapping("/getuserdate")
-    public String getuserdate(HttpServletRequest request, @Valid @ModelAttribute("dateHistory") DateHistory dateHistory, BindingResult result, Model model) //, @RequestParam("date") LocalDate date)
+    public String getuserdate(HttpServletRequest request, DateHistory dateHistory, Model model)
     {
+        //System.out.println("entering post getuserdate");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+        String userdate = request.getParameter("userdate");
 
+        LocalDate localDate = LocalDate.parse(userdate, formatter);
 
-        if(result.hasErrors())
-        {
-            return "getuserdate";
-        }
-
-        DayOfWeek dayOfWeek = dateHistory.getUserDate().getDayOfWeek();
-
-
-
-
-       // java.time.DayOfWeek dayOfWeek = dateHistory.getDayOfWeek();
-
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
 
         System.out.println("dayofweek is " + dayOfWeek);
 
-        dateHistory.setMaleName(maleNames.get(dayOfWeek.getValue()));
-
-        dateHistory.setFemaleName(femaleNames.get(dayOfWeek.getValue()));
-
-
+        dateHistory.setUserDate(localDate);
+        dateHistory.setMaleName(maleNames.get((dayOfWeek.getValue())-1));
+        dateHistory.setFemaleName(femaleNames.get((dayOfWeek.getValue())-1));
         datehistoryRepository.save(dateHistory);
-
+        model.addAttribute("datehistorys", dateHistory);
         return "listdatehistory";
-
     }
 
     @RequestMapping("/listdatehistory")

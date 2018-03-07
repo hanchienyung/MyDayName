@@ -1,13 +1,12 @@
-package com.cy.example.demo;
+package com.cy.example.demo.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class DateHistory {
@@ -21,6 +20,23 @@ public class DateHistory {
     private String femaleName;
 
     private String maleName;
+
+    @ManyToMany
+    private Set<AppUser> users;
+
+    public DateHistory() {
+        this.users = new HashSet<>();
+    }
+
+    public DateHistory(LocalDate userDate, String femaleName, String maleName, Set<AppUser> users) {
+        this.userDate = userDate;
+        this.femaleName = femaleName;
+        this.maleName = maleName;
+        this.users = new HashSet<>();
+    }
+
+    public void addUsertoDateHistory(AppUser aAppUser) {this.users.add(aAppUser);}
+
 
     public long getId() {
         return id;
@@ -54,7 +70,11 @@ public class DateHistory {
         this.maleName = maleName;
     }
 
+    public Set<AppUser> getUsers() {
+        return users;
+    }
 
-    //public DayOfWeek getDayofWeek() {
-    //}
+    public void setUsers(Set<AppUser> users) {
+        this.users = users;
+    }
 }

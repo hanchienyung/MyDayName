@@ -6,16 +6,15 @@
     <div th:replace="fragment :: top"></div>
     <link rel="stylesheet" href="./css/styles.css"/>
 </head>
-<div th:replace="fragment :: navlinks"></div>
 <h1>List of Items</h1>
 <table class="table" >
     <tr>
-        <th>Day of Week</th>
+        <th>Date of Birth</th>
         <th>Female Name</th>
         <th>Male Name</th>
     </tr>
     <tr th:each="datehistory : ${datehistorys}">
-        <td data-th="Day of Week" th:text="${datehistory.dayofWeek}"></td>
+        <td data-th="Day of Week" th:text="${datehistory.userDate}"></td>
         <td data-th="Female Name" th:text="${datehistory.femaleName}"></td>
         <td data-th="Male Name" th:text="${datehistory.maleName}"></td>
 
