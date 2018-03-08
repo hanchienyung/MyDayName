@@ -54,9 +54,8 @@ public class MainController{
     public String getuserdate(DateHistory dateHistory, Model model) //, @RequestParam("date") LocalDate date)
     {
 
-        DateHistory datehistory = new DateHistory();
         //System.out.println ("addreportitem (request) = reportItem id / Name = " +  reportItem.getId() + " / " + reportItem.getItemName());
-        datehistoryRepository.save(dateHistory);
+
         model.addAttribute("datehistorys", dateHistory);
         return "dateform";
     }
@@ -64,6 +63,7 @@ public class MainController{
     @PostMapping("/processuserdate")
     public String processuserdate(HttpServletRequest request, DateHistory dateHistory, Model model, Authentication auth)
     {
+        DateHistory datehistory = new DateHistory();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         String userdate = request.getParameter("userdate");
 
@@ -81,6 +81,7 @@ public class MainController{
         dateHistory.setChineseZodiac(chineseZodiac.get(dateHistory.getChineseSign(localDate)));
 
         datehistoryRepository.save(dateHistory);
+
 
         model.addAttribute("datehistorys", dateHistory);
         return "listdatehistory";
